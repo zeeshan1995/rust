@@ -42,7 +42,27 @@ fn chapter3_comman_programming_concepts() {
         println!("{}", n);
     }
 }
+
+
+fn chapter4_understanding_ownership() {
+    println!("Running Chapter 4");
+
+    //write a function that takes a string of words separated by spaces and
+    //returns the first word it finds in that string.
+    //If the function doesn’t find a space in the string, the whole string must be one word, so the entire string should be returned.
+    //fn first_word(s: &String) -> &str {
+    fn first_word(s: &str) -> &str { // deref coercions
+        let index = s.find(' ');
+        if index.is_some() { &s[..index.unwrap()] } else { s }
+    }
+
+    let s = String::from("Apple ball cat");
+    //let s = String::from("Appleballcat");
+    let x = first_word(&s);
+    println!("{}", x);
+}
 fn main() {
+    /*
     println!("Hello, world!");
 
     let a = 255u8;
@@ -55,6 +75,7 @@ fn main() {
     let c = a.wrapping_add(b);
     
     println!("a+b = {c}");
-
+*/
     chapter3_comman_programming_concepts();
+    chapter4_understanding_ownership();
 }
