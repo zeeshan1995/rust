@@ -1,5 +1,5 @@
 
-use std::io;
+//use std::io;
 
 fn chapter3_comman_programming_concepts() {
     println!("Running chapter1");
@@ -61,6 +61,56 @@ fn chapter4_understanding_ownership() {
     let x = first_word(&s);
     println!("{}", x);
 }
+
+fn chapter5_struct() {
+    println!("Running Chapter 5");
+    struct User {
+        active: bool,
+        username: String,
+        email: String,
+        sign_in_count: u64
+    }
+
+    let user1 = User {
+        active: true,
+        username: String::from("User1"),
+        email: String::from("user1@rust"),
+        sign_in_count: 1
+    };
+
+    //println!("{user1}");
+    println!("{}", user1.username);
+
+    //struct update syntax. Data members gets moved(not copied).
+    let user2 = User {
+        username: String::from("User2"),
+        ..user1
+    };
+    println!("{}", user1.username);
+    //println!("{}", user1.email); //Error value has been moved
+    //
+
+    //let’s write a program that calculates the area of a rectangle.
+
+    #[derive(Debug)]
+    struct Rectangle {
+        length: u64,
+        breadth: u64
+    }
+
+    impl Rectangle {
+        fn area(& self) -> u64 {
+            self.length * self.breadth
+        }
+    }
+
+    let rec = Rectangle{
+        length: 100,
+        breadth: 50
+    };
+
+    println!("{:#?} | Area -> {}", rec, rec.area());
+}
 fn main() {
     /*
     println!("Hello, world!");
@@ -78,4 +128,5 @@ fn main() {
 */
     chapter3_comman_programming_concepts();
     chapter4_understanding_ownership();
+    chapter5_struct();
 }
