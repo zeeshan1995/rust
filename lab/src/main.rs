@@ -111,6 +111,71 @@ fn chapter5_struct() {
 
     println!("{:#?} | Area -> {}", rec, rec.area());
 }
+
+fn chapter6_enum() {
+
+    #[derive(Debug)]
+    struct Foo {
+        a : String
+    };
+
+    #[derive(Debug)]
+    struct Bar {
+        a : i32
+    };
+
+    #[derive(Debug)]
+    enum FooBar {
+        foo(Foo),
+        bar(Bar)
+    };
+
+    let f = FooBar::foo(Foo{a:String::from("Foo")});
+    println!("{:#?}", f);
+
+    impl FooBar {
+        fn call(&self) {
+            match self {
+                FooBar::foo(f) => { println!("Foo => {}", f.a); }
+                FooBar::bar(b) => { println!("Bar => {}", b.a); }
+            }
+        }
+    };
+
+    f.call();
+
+
+    enum Coin {
+        Penny,
+        Nickel,
+        Dime,
+        Quater
+    };
+
+    impl Coin {
+        fn value(&self) -> i32 {
+            match self {
+                Coin::Penny => 1,
+                Coin::Nickel=> 5,
+                Coin::Dime => 10,
+                Coin::Quater => 25,
+            }
+        }
+
+        fn gt5(&self) -> bool {
+            match self {
+                Coin::Penny | Coin::Nickel => false,
+                _ => true,
+            }
+        }
+    };
+
+    let nickel = Coin::Nickel;
+    println!("{}", nickel.value());
+    println!("{}", nickel.gt5());
+    let dime = Coin::Dime;
+    println!("{}", dime.gt5());
+}
 fn main() {
     /*
     println!("Hello, world!");
@@ -129,4 +194,5 @@ fn main() {
     chapter3_comman_programming_concepts();
     chapter4_understanding_ownership();
     chapter5_struct();
+    chapter6_enum();
 }
