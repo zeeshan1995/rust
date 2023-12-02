@@ -7,7 +7,7 @@
 - [X] Understanding Ownership
 - [X] Using Structs to Structure Related Data
 - [X] Enums and Pattern Matching
-- [ ] Managing Growing Projects with Packages, Crates, and Modules
+- [X] Managing Growing Projects with Packages, Crates, and Modules
 - [ ] Common Collections
 - [ ] Error Handling
 - [ ] Generic Types, Traits, and Lifetimes
