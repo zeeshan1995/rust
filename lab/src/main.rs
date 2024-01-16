@@ -113,6 +113,7 @@ fn chapter5_struct() {
 }
 
 mod chapter6_enum;
+mod chapter7_collections;
 fn main() {
     /*
     println!("Hello, world!");
@@ -135,4 +136,9 @@ fn main() {
 
     use crate::chapter6_enum;
     chapter6_enum::run();
+
+    println!("\n***********************| Chapter 7: Collections |****************************\n");
+
+    use crate::chapter7_collections;
+    chapter7_collections::run();
 }
