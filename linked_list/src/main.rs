@@ -43,10 +43,28 @@ impl LinkedList{
         }
     }
 
+    pub fn find(&mut self, value: i32) -> &Option<Box<Node>> {
+        let mut cur = &self.head;
+        while cur.is_some() {
+            cur = match &mut cur {
+                Some(boxed_node) => {
+                    match boxed_node.value {
+                        x if x == value => return cur,
+                        _ => &boxed_node.next
+                    }
+                },
+                None => return cur
+            };
+        }
+        cur
+    }
+
+
     pub fn new() -> LinkedList {
         LinkedList {head: None}
     }
 }
+
 fn main() {
     println!("Hello, world!");
 
@@ -57,18 +75,13 @@ fn main() {
     println!("{:?}", linked_list);
     linked_list.append(2);
     println!("{:?}", linked_list);
+    linked_list.append(3);
+    println!("{:?}", linked_list);
 
-    /*
-    let head: Option<Node> = None;
-    let mut a = Node{
-        value: 23,
-        next : None
-    };
-    let mut b = Node{
-        value: 24,
-        next : None
-    };
-    a.next = Some(&b);
-*/
+    println!("\n============LinkedList::find=============\n");
+    println!("{:?}", linked_list.find(1));
+    println!("{:?}", linked_list.find(2));
+    println!("{:?}", linked_list.find(3));
+    println!("{:?}", linked_list.find(4));
 }
 
