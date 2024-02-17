@@ -23,6 +23,10 @@ struct LinkedList {
 }
 
 impl LinkedList{
+    pub fn new() -> LinkedList {
+        LinkedList {head: None}
+    }
+
     fn append_imp(node: &mut Box<Node>, value: i32) {
         match &mut node.next {
             Some(boxed_node) => LinkedList::append_imp(boxed_node, value),
@@ -113,8 +117,19 @@ impl LinkedList{
         cur
     }
 
-    pub fn new() -> LinkedList {
-        LinkedList {head: None}
+    pub fn erase(&mut self, value: i32) -> &mut Option<Box<Node>> {
+        let mut cur = &mut self.head;
+        while let Some(boxed_node) = cur {
+            if let Some(ref mut next_boxed_node) = boxed_node.next {
+                if next_boxed_node.value == value {
+                    println!("Found {value}");
+                    boxed_node.next = next_boxed_node.next.take();
+                    return &mut boxed_node.next;
+                }
+            }
+            cur = &mut boxed_node.next;
+        }
+        return cur;
     }
 }
 
@@ -148,4 +163,9 @@ fn main() {
     println!("{:?}", linked_list);
 
     println!("{:?}", linked_list.insert_after(4, 40));
+
+    println!("\n============LinkedList::erase=============\n");
+    linked_list.erase(3);
+    println!("{:?}", linked_list);
+    linked_list.erase(233);
 }
