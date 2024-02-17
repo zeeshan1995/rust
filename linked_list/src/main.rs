@@ -1,4 +1,5 @@
-//struct Node<'a> {
+
+use std::fmt;
 #[derive(Debug)]
 struct Node {
     value : i32,
@@ -20,6 +21,20 @@ impl<'a> Node<'a> {
 #[derive(Debug)]
 struct LinkedList {
     head: Option<Box<Node>>
+}
+
+impl fmt::Display for LinkedList {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let mut result = String::new();
+        let mut cur = &self.head;
+        while let Some(boxed_node) = cur {
+            result.push_str(&boxed_node.value.to_string());
+            result.push_str(",");
+            cur = & boxed_node.next;
+        }
+        result.pop();
+        write!(f, "{}", result)
+    }
 }
 
 impl LinkedList{
@@ -122,7 +137,6 @@ impl LinkedList{
         while let Some(boxed_node) = cur {
             if let Some(ref mut next_boxed_node) = boxed_node.next {
                 if next_boxed_node.value == value {
-                    println!("Found {value}");
                     boxed_node.next = next_boxed_node.next.take();
                     return &mut boxed_node.next;
                 }
@@ -165,7 +179,8 @@ fn main() {
     println!("{:?}", linked_list.insert_after(4, 40));
 
     println!("\n============LinkedList::erase=============\n");
+    println!("{linked_list}");
     linked_list.erase(3);
-    println!("{:?}", linked_list);
+    println!("{linked_list}");
     linked_list.erase(233);
 }
